@@ -1,14 +1,14 @@
 <template>
     <div>
         <el-row>
-            <el-col :span="9" v-for="post in posts" :key="post_id" >
-                <el-card :body-style="{ padding: '0px' }">
+            <el-col :span="9" v-for="post in posts" :key="post.id" >
+                <el-card :body-style="{ padding: '15px'}">
                 <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
                 <div style="padding: 14px;">
-                    <span>{{post.title}}</span>
+                    <h4 class="title">{{post.title}}</h4>
                     <div class="bottom clearfix">
-                    <span>{{post.text}}</span>
-                    <span>{{post.watch}}</span>
+                    <p>{{post.text.substring(0, 100)+ '...'}}</p>
+                    <i class="el-icon-view"><span class="watch">{{post.watch}}</span></i>
                     </div>
                 </div>
                 </el-card>
@@ -17,9 +17,22 @@
     </div>
 </template>
 <style>
+    .el-row {
+        margin: 20px;
+    }
+
+    .el-col {
+        margin: 10px;
+    }
+
+    .title {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
     .bottom {
         margin-top: 13px;
-        line-height: 12px;
+        line-height: 20px;
     }
 
     .image {
@@ -35,6 +48,10 @@
 
     .clearfix:after {
         clear: both
+    }
+
+    .watch {
+        padding-left: 5px;
     }
 </style>
 <script>

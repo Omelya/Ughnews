@@ -3610,6 +3610,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10003,7 +10020,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bottom {\n    margin-top: 13px;\n    line-height: 12px;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n.clearfix:before,\n.clearfix:after {\n    display: table;\n    content: \"\";\n}\n.clearfix:after {\n    clear: both\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin: 20px;\n}\n.el-col {\n    margin: 10px;\n}\n.title {\n    text-align: center;\n    text-transform: uppercase;\n}\n.bottom {\n    margin-top: 13px;\n    line-height: 20px;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n.clearfix:before,\n.clearfix:after {\n    display: table;\n    content: \"\";\n}\n.clearfix:after {\n    clear: both\n}\n.watch {\n    padding-left: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -101782,9 +101799,9 @@ var render = function() {
         _vm._l(_vm.posts, function(post) {
           return _c(
             "el-col",
-            { key: _vm.post_id, attrs: { span: 9 } },
+            { key: post.id, attrs: { span: 9 } },
             [
-              _c("el-card", { attrs: { "body-style": { padding: "0px" } } }, [
+              _c("el-card", { attrs: { "body-style": { padding: "15px" } } }, [
                 _c("img", {
                   staticClass: "image",
                   attrs: {
@@ -101794,12 +101811,20 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("div", { staticStyle: { padding: "14px" } }, [
-                  _c("span", [_vm._v(_vm._s(post.title))]),
+                  _c("h4", { staticClass: "title" }, [
+                    _vm._v(_vm._s(post.title))
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "bottom clearfix" }, [
-                    _c("span", [_vm._v(_vm._s(post.text))]),
+                    _c("p", [
+                      _vm._v(_vm._s(post.text.substring(0, 100) + "..."))
+                    ]),
                     _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(post.watch))])
+                    _c("i", { staticClass: "el-icon-view" }, [
+                      _c("span", { staticClass: "watch" }, [
+                        _vm._v(_vm._s(post.watch))
+                      ])
+                    ])
                   ])
                 ])
               ])
