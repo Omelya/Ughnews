@@ -15,4 +15,4 @@ use App\Http\Controllers\PostController;
 |
 */
 
-// Route::apiResource('/', PostController::class);
+Route::apiResource('posts', PostController::class);
