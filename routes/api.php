@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LastPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,5 @@ use App\Http\Controllers\PostController;
 */
 
 Route::apiResource('posts', PostController::class);
+
+Route::apiResource('last_posts', LastPostController::class);

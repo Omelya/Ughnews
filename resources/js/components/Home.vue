@@ -67,7 +67,6 @@
                     likes: ''
                 },
                 post_id: '',
-                pagination: {},
                 edit: false,
                 errored: false
             }
@@ -77,10 +76,10 @@
         },
         methods: {
             getPosts() {
-                axios.get('/api/posts')
+                axios.get('/api/last_posts')
                 .then(response => {
-                    this.posts = response.data.data
-                    console.log(response.data.data)
+                    this.posts = response.data
+                    console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error)

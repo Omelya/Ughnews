@@ -6,9 +6,9 @@
                 <el-menu-item  index="articles">Articles</el-menu-item>
             </el-menu>
         </el-header>
-        <div>
+        <el-main>
             <router-view></router-view>
-        </div>
+        </el-main>
     </el-container> 
 </template>
 
