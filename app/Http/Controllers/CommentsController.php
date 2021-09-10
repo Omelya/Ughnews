@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
 
-class PostController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::latest()->paginate(10);
+        //
     }
 
     /**
@@ -25,7 +24,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        
+        return $request;
     }
 
     /**
@@ -36,7 +35,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return Post::where('id', $id)->get();
+        //
     }
 
     /**

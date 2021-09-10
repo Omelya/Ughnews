@@ -37,6 +37,7 @@ import Home from './components/Home'
 
 import Articles from './components/Articles'
 
+import Post from './components/Post'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -56,7 +57,13 @@ import Articles from './components/Articles'
             path: '/articles',
             name: 'articles',
             component: Articles
-        }
+        },
+        {
+            path: '/articles/:postId',
+            name: 'showPost',
+            component: Post,
+            props: true
+        },
     ]
 })
 

@@ -1,29 +1,35 @@
 <template>
-    <div>
-        <el-row>
-            <el-col :span="9" v-for="post in posts" :key="post.id" >
-                <el-card :body-style="{ padding: '15px'}">
-                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-                <div style="padding: 14px;">
-                    <h4 class="title">{{post.title}}</h4>
-                    <div class="bottom clearfix">
-                    <p>{{post.text.substring(0, 100)+ '...'}}</p>
-                    <i class="el-icon-view"><span class="watch">{{post.watch}}</span></i>
-                    </div>
-                </div>
-                </el-card>
-            </el-col>
-        </el-row>
-        <el-pagination 
-            background
-            layout="prev, pager, next"
-            @current-change="handleCurrentChange"
-            @next-click="getPosts(pagination.next_page_url)"
-            @prev-click="getPosts(pagination.prev_page_url)"
-            :page-count="pagination.last_page"
-            >
-        </el-pagination>
-    </div>
+    <el-container>
+        <el-main>
+            <el-row>
+                <el-col :span="9" v-for="post in posts" :key="post.id">
+                    <router-link :to="{name: 'showPost', params: {postId: post.id}}">
+                        <el-card :body-style="{ padding: '15px'}">
+                        <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+                        <div style="padding: 14px;">
+                            <h4 class="title">{{post.title}}</h4>
+                            <div class="bottom clearfix">
+                            <p>{{post.text.substring(0, 100)+ '...'}}</p>
+                            <i class="el-icon-view"><span class="watch">{{post.watch}}</span></i>
+                            </div>
+                        </div>
+                        </el-card>
+                    </router-link>
+                </el-col>
+            </el-row>
+        </el-main>
+        <el-footer>
+            <el-pagination 
+                background
+                layout="prev, pager, next"
+                @current-change="handleCurrentChange"
+                @next-click="getPosts(pagination.next_page_url)"
+                @prev-click="getPosts(pagination.prev_page_url)"
+                :page-count="pagination.last_page"
+                >
+            </el-pagination>
+        </el-footer>
+    </el-container>
 </template>
 <style>
     .el-row {
@@ -77,7 +83,6 @@
                 },
                 post_id: '',
                 pagination: {},
-                edit: false,
                 errored: false
             }
         },
@@ -105,7 +110,6 @@
                     last_page: response.last_page,
                     prev_page_url: response.prev_page_url,
                     next_page_url: response.next_page_url,
-                    path: response.path,
                 }
 
                 this.pagination = pagination
