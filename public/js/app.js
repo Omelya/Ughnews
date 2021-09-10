@@ -3621,6 +3621,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3685,6 +3689,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3843,6 +3859,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['postId'],
   data: function data() {
@@ -3878,6 +3906,18 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.replyComment = response;
         console.log(_this2.replyComment);
+      });
+    },
+    likesCount: function likesCount(response) {
+      var _this3 = this;
+
+      var likes = response + 1;
+      axios.patch('/api/posts/' + this.postId, {
+        likes: likes
+      }).then(function (response) {
+        _this3.like = response.data;
+
+        _this3.getPost();
       });
     }
   }
@@ -10248,7 +10288,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin: 20px;\n}\n.el-col {\n    margin: 10px;\n}\n.title {\n    text-align: center;\n    text-transform: uppercase;\n}\n.bottom {\n    margin-top: 13px;\n    line-height: 20px;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n.clearfix:before,\n.clearfix:after {\n    display: table;\n    content: \"\";\n}\n.clearfix:after {\n    clear: both\n}\n.watch {\n    padding-left: 5px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.post-link {\n    text-decoration: none;\n}\n.el-row {\n    margin: 20px;\n}\n.el-col {\n    margin: 10px;\n}\n.title {\n    text-align: center;\n    text-transform: uppercase;\n}\n.bottom {\n    margin-top: 13px;\n    line-height: 20px;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n.clearfix:before,\n.clearfix:after {\n    display: table;\n    content: \"\";\n}\n.clearfix:after {\n    clear: both\n}\n.watch {\n    padding-left: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10272,7 +10312,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin: 20px;\n}\n.el-col {\n    margin: 10px;\n}\n.title {\n    text-align: center;\n    text-transform: uppercase;\n}\n.bottom {\n    margin-top: 13px;\n    line-height: 20px;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n.clearfix:before,\n.clearfix:after {\n    display: table;\n    content: \"\";\n}\n.clearfix:after {\n    clear: both\n}\n.watch {\n    padding-left: 5px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.post-link {\n    text-decoration: none;\n}\n.el-row {\n    margin: 20px;\n}\n.el-col {\n    margin: 10px;\n}\n.title {\n    text-align: center;\n    text-transform: uppercase;\n}\n.bottom {\n    margin-top: 13px;\n    line-height: 20px;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n.clearfix:before,\n.clearfix:after {\n    display: table;\n    content: \"\";\n}\n.clearfix:after {\n    clear: both\n}\n.icon-post {\n    display: flex;\n    justify-content: space-around;\n}\n.watch {\n    padding-left: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10296,7 +10336,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin-bottom: 20px;\n}\n.el-col {\n    border-radius: 4px;\n}\n.content {\n    border: 2px solid gray;\n    border-radius: 25px;\n}\n.content-inner {\n    margin: 10px 50px;\n}\n.post-title {\n    text-align: center;\n    text-transform: uppercase;\n}\n\n/* .post-content {\n    \n} */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin-bottom: 20px;\n}\n.el-col {\n    border-radius: 4px;\n}\n.content {\n    border: 2px solid gray;\n    border-radius: 25px;\n}\n.content-inner {\n    margin: 10px 50px;\n}\n.post-title {\n    text-align: center;\n    text-transform: uppercase;\n}\n\n/* .post-content {\n    \n} */\n.form-container {\n    margin-top: 100px;\n    margin-left: -100px;\n}\n.comment-title {\n    margin-left: 100px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -102166,7 +102206,7 @@ var render = function() {
             [
               _c("el-menu-item", { attrs: { index: "/" } }, [_vm._v("Home")]),
               _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "articles" } }, [
+              _c("el-menu-item", { attrs: { index: "/articles" } }, [
                 _vm._v("Articles")
               ])
             ],
@@ -102220,6 +102260,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
+                      staticClass: "post-link",
                       attrs: {
                         to: { name: "showPost", params: { postId: post.id } }
                       }
@@ -102324,15 +102365,20 @@ var render = function() {
     "el-container",
     [
       _c(
-        "el-link",
-        { attrs: { href: "#" } },
-        [
-          _c(
-            "el-row",
-            _vm._l(_vm.posts, function(post) {
-              return _c(
-                "el-col",
-                { key: post.id, attrs: { span: 9 } },
+        "el-row",
+        _vm._l(_vm.posts, function(post) {
+          return _c(
+            "el-col",
+            { key: post.id, attrs: { span: 9 } },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "post-link",
+                  attrs: {
+                    to: { name: "showPost", params: { postId: post.id } }
+                  }
+                },
                 [
                   _c(
                     "el-card",
@@ -102356,9 +102402,17 @@ var render = function() {
                             _vm._v(_vm._s(post.text.substring(0, 100) + "..."))
                           ]),
                           _vm._v(" "),
-                          _c("i", { staticClass: "el-icon-view" }, [
-                            _c("span", { staticClass: "watch" }, [
-                              _vm._v(_vm._s(post.watch))
+                          _c("div", { staticClass: "icon-post" }, [
+                            _c("i", { staticClass: "el-icon-view" }, [
+                              _c("span", { staticClass: "watch" }, [
+                                _vm._v(_vm._s(post.watch))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("i", { staticClass: "el-icon-star-off" }, [
+                              _c("span", { staticClass: "watch" }, [
+                                _vm._v(_vm._s(post.likes))
+                              ])
                             ])
                           ])
                         ])
@@ -102368,10 +102422,10 @@ var render = function() {
                 ],
                 1
               )
-            }),
+            ],
             1
           )
-        ],
+        }),
         1
       )
     ],
@@ -102420,8 +102474,31 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c(
-              "div",
+              "i",
+              {
+                staticClass: "el-icon-star-off",
+                attrs: { id: "el-icon-star" },
+                on: {
+                  click: function($event) {
+                    return _vm.likesCount(post.likes)
+                  }
+                }
+              },
               [
+                _c("span", { staticClass: "watch" }, [
+                  _vm._v(_vm._s(post.likes))
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-container" },
+              [
+                _c("h3", { staticClass: "comment-title" }, [
+                  _vm._v("Залишити коментар")
+                ]),
+                _vm._v(" "),
                 _c(
                   "el-form",
                   { attrs: { "label-width": "100px", model: _vm.formComment } },

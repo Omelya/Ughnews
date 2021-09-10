@@ -6,7 +6,9 @@
                         <h4 class="post-title">{{post.title}}</h4>
                         <p class="post-content">{{post.text}}</p>
                         <i class="el-icon-view"><span class="watch">{{post.watch}}</span></i>
-                        <div>
+                        <i class="el-icon-star-off" id="el-icon-star" @click="likesCount(post.likes)"><span class="watch">{{post.likes}}</span></i>
+                        <div class="form-container">
+                            <h3 class="comment-title">Залишити коментар</h3>
                             <el-form label-width="100px" :model="formComment">
                                 <el-form-item >
                                     <el-input type="text" v-model="formComment.subject" placeholder="Тема коментаря"></el-input>
@@ -50,6 +52,16 @@
     /* .post-content {
         
     } */
+
+    .form-container {
+        margin-top: 100px;
+        margin-left: -100px;
+    }
+
+    .comment-title {
+        margin-left: 100px;
+    }
+
 </style>
 <script>
 export default {
@@ -90,6 +102,17 @@ export default {
                     .then(response => {
                         this.replyComment = response
                         console.log(this.replyComment)
+                    })
+            },
+            likesCount(response) {
+                let likes = response + 1
+                axios
+                    .patch('/api/posts/'+this.postId, {
+                        likes
+                    })
+                    .then(response => {
+                        this.like = response.data
+                        this.getPost()
                     })
             }     
         }

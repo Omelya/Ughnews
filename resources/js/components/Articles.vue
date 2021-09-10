@@ -3,7 +3,7 @@
         <el-main>
             <el-row>
                 <el-col :span="9" v-for="post in posts" :key="post.id">
-                    <router-link :to="{name: 'showPost', params: {postId: post.id}}">
+                    <router-link class="post-link" :to="{name: 'showPost', params: {postId: post.id}}">
                         <el-card :body-style="{ padding: '15px'}">
                         <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
                         <div style="padding: 14px;">
@@ -32,6 +32,10 @@
     </el-container>
 </template>
 <style>
+    .post-link {
+        text-decoration: none;
+    }
+    
     .el-row {
         margin: 20px;
     }
