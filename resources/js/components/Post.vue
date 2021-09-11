@@ -16,17 +16,33 @@
                                 type="error"
                                 :closable="false">
                             </el-alert>
-                            <el-form label-width="100px" :model="formComment">
-                                <el-form-item >
-                                    <el-input type="text" v-model="formComment.subject" placeholder="Тема коментаря"></el-input>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-input type="textarea" v-model="formComment.body" placeholder="Текст коментаря"></el-input>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-button type="primary" @click="submitForm('formComment')">Відправити</el-button>
-                                </el-form-item>
-                            </el-form>
+                            <div>
+                                <div v-if="errored">
+                                    <div v-for="error in errored" :key="error.lenght">
+                                        <span>{{error.subject}}</span>
+                                        <span>{{error.body}}</span>
+                                        <el-alert
+                                        title="{error.subject}"
+                                        type="error"
+                                        effect="dark"
+                                        :closable="false">
+                                        </el-alert>
+                                    </div>
+                                </div>
+                                <div>
+                                    <el-form label-width="100px" :model="formComment">
+                                        <el-form-item >
+                                            <el-input type="text" v-model="formComment.subject" placeholder="Тема коментаря"></el-input>
+                                        </el-form-item>
+                                        <el-form-item>
+                                            <el-input type="textarea" v-model="formComment.body" placeholder="Текст коментаря"></el-input>
+                                        </el-form-item>
+                                        <el-form-item>
+                                            <el-button type="primary" @click="submitForm('formComment')">Відправити</el-button>
+                                        </el-form-item>
+                                    </el-form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,8 +138,11 @@ export default {
                             body: this.formComment.body
                         })
                         .then(response => {
-                            this.replyComment = response
-                            console.log(this.replyComment)
+                            this.sendComment = response
+                        })
+                        .catch(error => {
+                            this.errored = true;
+                            this.errored = error.response.data
                         })
                 }
             },
@@ -159,7 +178,7 @@ export default {
                     })
                 }  
                 
-            }    
+            }
         }
 }
 </script>

@@ -3884,6 +3884,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['postId'],
   data: function data() {
@@ -3924,8 +3940,10 @@ __webpack_require__.r(__webpack_exports__);
           subject: this.formComment.subject,
           body: this.formComment.body
         }).then(function (response) {
-          _this2.replyComment = response;
-          console.log(_this2.replyComment);
+          _this2.sendComment = response;
+        })["catch"](function (error) {
+          _this2.errored = true;
+          _this2.errored = error.response.data;
         });
       }
     },
@@ -102547,71 +102565,112 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "el-form",
-                  { attrs: { "label-width": "100px", model: _vm.formComment } },
-                  [
-                    _c(
-                      "el-form-item",
-                      [
-                        _c("el-input", {
+                _c("div", [
+                  _vm.errored
+                    ? _c(
+                        "div",
+                        _vm._l(_vm.errored, function(error) {
+                          return _c(
+                            "div",
+                            { key: error.lenght },
+                            [
+                              _c("span", [_vm._v(_vm._s(error.subject))]),
+                              _vm._v(" "),
+                              _c("span", [_vm._v(_vm._s(error.body))]),
+                              _vm._v(" "),
+                              _c("el-alert", {
+                                attrs: {
+                                  title: "{error.subject}",
+                                  type: "error",
+                                  effect: "dark",
+                                  closable: false
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        }),
+                        0
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "el-form",
+                        {
                           attrs: {
-                            type: "text",
-                            placeholder: "Тема коментаря"
-                          },
-                          model: {
-                            value: _vm.formComment.subject,
-                            callback: function($$v) {
-                              _vm.$set(_vm.formComment, "subject", $$v)
-                            },
-                            expression: "formComment.subject"
+                            "label-width": "100px",
+                            model: _vm.formComment
                           }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "el-form-item",
-                      [
-                        _c("el-input", {
-                          attrs: {
-                            type: "textarea",
-                            placeholder: "Текст коментаря"
-                          },
-                          model: {
-                            value: _vm.formComment.body,
-                            callback: function($$v) {
-                              _vm.$set(_vm.formComment, "body", $$v)
-                            },
-                            expression: "formComment.body"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "el-form-item",
-                      [
-                        _c(
-                          "el-button",
-                          {
-                            attrs: { type: "primary" },
-                            on: {
-                              click: function($event) {
-                                return _vm.submitForm("formComment")
-                              }
-                            }
-                          },
-                          [_vm._v("Відправити")]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
+                        },
+                        [
+                          _c(
+                            "el-form-item",
+                            [
+                              _c("el-input", {
+                                attrs: {
+                                  type: "text",
+                                  placeholder: "Тема коментаря"
+                                },
+                                model: {
+                                  value: _vm.formComment.subject,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formComment, "subject", $$v)
+                                  },
+                                  expression: "formComment.subject"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-form-item",
+                            [
+                              _c("el-input", {
+                                attrs: {
+                                  type: "textarea",
+                                  placeholder: "Текст коментаря"
+                                },
+                                model: {
+                                  value: _vm.formComment.body,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formComment, "body", $$v)
+                                  },
+                                  expression: "formComment.body"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-form-item",
+                            [
+                              _c(
+                                "el-button",
+                                {
+                                  attrs: { type: "primary" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.submitForm("formComment")
+                                    }
+                                  }
+                                },
+                                [_vm._v("Відправити")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
               ],
               1
             )
