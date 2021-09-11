@@ -9,6 +9,13 @@
                         <i class="el-icon-star-off" id="el-icon-star" @click="likesCount(post.likes)"><span class="watch">{{post.likes}}</span></i>
                         <div class="form-container">
                             <h3 class="comment-title">Залишити коментар</h3>
+                            <el-alert
+                                v-if="errors"
+                                effect="dark"
+                                description="Наявні незаповнені поля"
+                                type="error"
+                                :closable="false">
+                            </el-alert>
                             <el-form label-width="100px" :model="formComment">
                                 <el-form-item >
                                     <el-input type="text" v-model="formComment.subject" placeholder="Тема коментаря"></el-input>
@@ -29,6 +36,12 @@
 <style>
     .el-row {
         margin-bottom: 20px;
+    }
+
+    .el-alert {
+        margin-left: 100px;
+        margin-bottom: 20px;
+        max-width: 300px;
     }
 
     .el-col {
@@ -75,6 +88,7 @@ export default {
                     subject: '',
                     body: ''
                 },
+                errors: false,
                 errored: false
             }
         },
@@ -94,19 +108,34 @@ export default {
                     })
             },
             submitForm() {
-                axios
-                    .post('/api/comments', {
-                        subject: this.formComment.subject,
-                        body: this.formComment.body
-                    })
-                    .then(response => {
-                        this.replyComment = response
-                        console.log(this.replyComment)
-                    })
+                
+                if(!this.formComment.subject || !this.formComment.body) {
+                    this.errors = true;
+                }
+
+                if(this.formComment.subject && this.formComment.body) {
+                    this.errors = false;
+                    
+                    axios
+                        .post('/api/comments', {
+                            subject: this.formComment.subject,
+                            body: this.formComment.body
+                        })
+                        .then(response => {
+                            this.replyComment = response
+                            console.log(this.replyComment)
+                        })
+                }
             },
             likesCount(response) {
-                let likes = response + 1
-                axios
+                let icon = document.getElementById('el-icon-star');
+
+                if(icon.className === 'el-icon-star-off') {
+                    let likes = response + 1;
+
+                    icon.className = 'el-icon-star-on';
+
+                    axios
                     .patch('/api/posts/'+this.postId, {
                         likes
                     })
@@ -114,7 +143,23 @@ export default {
                         this.like = response.data
                         this.getPost()
                     })
-            }     
+                    
+                } else if(icon.className === 'el-icon-star-on') {
+                    let likes = response - 1;
+
+                    icon.className = 'el-icon-star-off';
+
+                    axios
+                    .patch('/api/posts/'+this.postId, {
+                        likes
+                    })
+                    .then(response => {
+                        this.like = response.data
+                        this.getPost()
+                    })
+                }  
+                
+            }    
         }
 }
 </script>

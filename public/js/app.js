@@ -3871,6 +3871,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['postId'],
   data: function data() {
@@ -3880,6 +3893,7 @@ __webpack_require__.r(__webpack_exports__);
         subject: '',
         body: ''
       },
+      errors: false,
       errored: false
     };
   },
@@ -3900,25 +3914,48 @@ __webpack_require__.r(__webpack_exports__);
     submitForm: function submitForm() {
       var _this2 = this;
 
-      axios.post('/api/comments', {
-        subject: this.formComment.subject,
-        body: this.formComment.body
-      }).then(function (response) {
-        _this2.replyComment = response;
-        console.log(_this2.replyComment);
-      });
+      if (!this.formComment.subject || !this.formComment.body) {
+        this.errors = true;
+      }
+
+      if (this.formComment.subject && this.formComment.body) {
+        this.errors = false;
+        axios.post('/api/comments', {
+          subject: this.formComment.subject,
+          body: this.formComment.body
+        }).then(function (response) {
+          _this2.replyComment = response;
+          console.log(_this2.replyComment);
+        });
+      }
     },
     likesCount: function likesCount(response) {
       var _this3 = this;
 
-      var likes = response + 1;
-      axios.patch('/api/posts/' + this.postId, {
-        likes: likes
-      }).then(function (response) {
-        _this3.like = response.data;
+      var icon = document.getElementById('el-icon-star');
 
-        _this3.getPost();
-      });
+      if (icon.className === 'el-icon-star-off') {
+        var likes = response + 1;
+        icon.className = 'el-icon-star-on';
+        axios.patch('/api/posts/' + this.postId, {
+          likes: likes
+        }).then(function (response) {
+          _this3.like = response.data;
+
+          _this3.getPost();
+        });
+      } else if (icon.className === 'el-icon-star-on') {
+        var _likes = response - 1;
+
+        icon.className = 'el-icon-star-off';
+        axios.patch('/api/posts/' + this.postId, {
+          likes: _likes
+        }).then(function (response) {
+          _this3.like = response.data;
+
+          _this3.getPost();
+        });
+      }
     }
   }
 });
@@ -10336,7 +10373,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin-bottom: 20px;\n}\n.el-col {\n    border-radius: 4px;\n}\n.content {\n    border: 2px solid gray;\n    border-radius: 25px;\n}\n.content-inner {\n    margin: 10px 50px;\n}\n.post-title {\n    text-align: center;\n    text-transform: uppercase;\n}\n\n/* .post-content {\n    \n} */\n.form-container {\n    margin-top: 100px;\n    margin-left: -100px;\n}\n.comment-title {\n    margin-left: 100px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin-bottom: 20px;\n}\n.el-alert {\n    margin-left: 100px;\n    margin-bottom: 20px;\n    max-width: 300px;\n}\n.el-col {\n    border-radius: 4px;\n}\n.content {\n    border: 2px solid gray;\n    border-radius: 25px;\n}\n.content-inner {\n    margin: 10px 50px;\n}\n.post-title {\n    text-align: center;\n    text-transform: uppercase;\n}\n\n/* .post-content {\n    \n} */\n.form-container {\n    margin-top: 100px;\n    margin-left: -100px;\n}\n.comment-title {\n    margin-left: 100px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -102498,6 +102535,17 @@ var render = function() {
                 _c("h3", { staticClass: "comment-title" }, [
                   _vm._v("Залишити коментар")
                 ]),
+                _vm._v(" "),
+                _vm.errors
+                  ? _c("el-alert", {
+                      attrs: {
+                        effect: "dark",
+                        description: "Наявні незаповнені поля",
+                        type: "error",
+                        closable: false
+                      }
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "el-form",
