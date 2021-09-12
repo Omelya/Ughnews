@@ -8,7 +8,15 @@
                         <i class="el-icon-view"><span class="watch">{{post.watch}}</span></i>
                         <i class="el-icon-star-off" id="el-icon-star" @click="likesCount(post.likes)"><span class="watch">{{post.likes}}</span></i>
                         <div class="form-container">
-                            <h3 class="comment-title">Залишити коментар</h3>
+                            <div id="success" hidden>
+                                <el-alert
+                                    :title="sendComment"
+                                    type="success"
+                                    center
+                                    show-icon>
+                                </el-alert>
+                            </div>
+                            <h3 class="comment-title" id="title-comment" >Залишити коментар</h3>
                             <el-alert
                                 v-if="errors"
                                 effect="dark"
@@ -27,7 +35,7 @@
                                         </el-alert>
                                     </div>
                                 </div>
-                                <div>
+                                <div id="form-comment">
                                     <el-form label-width="100px" :model="formComment">
                                         <el-form-item >
                                             <el-input type="text" v-model="formComment.subject" placeholder="Тема коментаря"></el-input>
@@ -84,6 +92,10 @@
         margin-top: 100px;
         margin-left: -100px;
     }
+    
+    #success {
+        margin-left: 100px;
+    }
 
     .comment-title {
         margin-left: 100px;
@@ -102,6 +114,7 @@ export default {
                     subject: '',
                     body: ''
                 },
+                sendComment: '',
                 errors: false,
                 errored: false
             }
@@ -130,18 +143,24 @@ export default {
                 if(this.formComment.subject && this.formComment.body) {
                     this.errors = false;
                     
+                    document.getElementById('title-comment').hidden = true;
+
+                    document.getElementById('form-comment').hidden = true;
+
+                    document.getElementById('success').hidden = false;
+
                     axios
                         .post('/api/comments', {
                             subject: this.formComment.subject,
                             body: this.formComment.body
                         })
                         .then(response => {
-                            this.sendComment = response
+                            this.sendComment = response.data
                         })
                         .catch(error => {
                             this.errored = true;
+                            this.errored = error
                             this.errored = error.response.data.errors
-                            console.log(this.errored)
                         })
                 }
             },

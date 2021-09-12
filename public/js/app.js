@@ -3898,6 +3898,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['postId'],
   data: function data() {
@@ -3907,6 +3919,7 @@ __webpack_require__.r(__webpack_exports__);
         subject: '',
         body: ''
       },
+      sendComment: '',
       errors: false,
       errored: false
     };
@@ -3934,15 +3947,18 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.formComment.subject && this.formComment.body) {
         this.errors = false;
+        document.getElementById('title-comment').hidden = true;
+        document.getElementById('form-comment').hidden = true;
+        document.getElementById('success').hidden = false;
         axios.post('/api/comments', {
           subject: this.formComment.subject,
           body: this.formComment.body
         }).then(function (response) {
-          _this2.sendComment = response;
+          _this2.sendComment = response.data;
         })["catch"](function (error) {
           _this2.errored = true;
+          _this2.errored = error;
           _this2.errored = error.response.data.errors;
-          console.log(_this2.errored);
         });
       }
     },
@@ -10390,7 +10406,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin-bottom: 20px;\n}\n.el-alert {\n    margin-left: 100px;\n    margin-bottom: 20px;\n    max-width: 300px;\n}\n.el-col {\n    border-radius: 4px;\n}\n.content {\n    border: 2px solid gray;\n    border-radius: 25px;\n}\n.content-inner {\n    margin: 10px 50px;\n}\n.post-title {\n    text-align: center;\n    text-transform: uppercase;\n}\n\n/* .post-content {\n    \n} */\n.form-container {\n    margin-top: 100px;\n    margin-left: -100px;\n}\n.comment-title {\n    margin-left: 100px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.el-row {\n    margin-bottom: 20px;\n}\n.el-alert {\n    margin-left: 100px;\n    margin-bottom: 20px;\n    max-width: 300px;\n}\n.el-col {\n    border-radius: 4px;\n}\n.content {\n    border: 2px solid gray;\n    border-radius: 25px;\n}\n.content-inner {\n    margin: 10px 50px;\n}\n.post-title {\n    text-align: center;\n    text-transform: uppercase;\n}\n\n/* .post-content {\n    \n} */\n.form-container {\n    margin-top: 100px;\n    margin-left: -100px;\n}\n#success {\n    margin-left: 100px;\n}\n.comment-title {\n    margin-left: 100px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -102549,9 +102565,30 @@ var render = function() {
               "div",
               { staticClass: "form-container" },
               [
-                _c("h3", { staticClass: "comment-title" }, [
-                  _vm._v("Залишити коментар")
-                ]),
+                _c(
+                  "div",
+                  { attrs: { id: "success", hidden: "" } },
+                  [
+                    _c("el-alert", {
+                      attrs: {
+                        title: _vm.sendComment,
+                        type: "success",
+                        center: "",
+                        "show-icon": ""
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "h3",
+                  {
+                    staticClass: "comment-title",
+                    attrs: { id: "title-comment" }
+                  },
+                  [_vm._v("Залишити коментар")]
+                ),
                 _vm._v(" "),
                 _vm.errors
                   ? _c("el-alert", {
@@ -102591,6 +102628,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
+                    { attrs: { id: "form-comment" } },
                     [
                       _c(
                         "el-form",

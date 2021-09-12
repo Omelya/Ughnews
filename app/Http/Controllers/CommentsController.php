@@ -28,7 +28,9 @@ class CommentsController extends Controller
             'subject' => 'required|string|max:255',
             'body' => 'required|string|max:600'
         ]);
-        return $errors;
+        if(isset($errors)) {
+            return $errors;
+        } else return 'Коментар відправлений успішно';
     }
 
     /**
