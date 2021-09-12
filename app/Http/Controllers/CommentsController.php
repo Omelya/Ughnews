@@ -25,8 +25,8 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate ([
-            'subject' => 'required|string|max:1',
-            'body' => 'required|string'
+            'subject' => 'required|string|max:255',
+            'body' => 'required|string|max:600'
         ]);
         return $errors;
     }

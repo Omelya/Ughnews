@@ -3898,8 +3898,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['postId'],
   data: function data() {
@@ -3943,7 +3941,8 @@ __webpack_require__.r(__webpack_exports__);
           _this2.sendComment = response;
         })["catch"](function (error) {
           _this2.errored = true;
-          _this2.errored = error.response.data;
+          _this2.errored = error.response.data.errors;
+          console.log(_this2.errored);
         });
       }
     },
@@ -102574,13 +102573,9 @@ var render = function() {
                             "div",
                             { key: error.lenght },
                             [
-                              _c("span", [_vm._v(_vm._s(error.subject))]),
-                              _vm._v(" "),
-                              _c("span", [_vm._v(_vm._s(error.body))]),
-                              _vm._v(" "),
                               _c("el-alert", {
                                 attrs: {
-                                  title: "{error.subject}",
+                                  title: String(error),
                                   type: "error",
                                   effect: "dark",
                                   closable: false

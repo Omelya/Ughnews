@@ -19,10 +19,8 @@
                             <div>
                                 <div v-if="errored">
                                     <div v-for="error in errored" :key="error.lenght">
-                                        <span>{{error.subject}}</span>
-                                        <span>{{error.body}}</span>
                                         <el-alert
-                                        title="{error.subject}"
+                                        :title="String(error)"
                                         type="error"
                                         effect="dark"
                                         :closable="false">
@@ -142,7 +140,8 @@ export default {
                         })
                         .catch(error => {
                             this.errored = true;
-                            this.errored = error.response.data
+                            this.errored = error.response.data.errors
+                            console.log(this.errored)
                         })
                 }
             },
