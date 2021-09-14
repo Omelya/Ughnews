@@ -3925,7 +3925,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.getPost();
+    this.getPost(), this.watchIncrement();
   },
   methods: {
     getPost: function getPost() {
@@ -3933,6 +3933,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/posts/' + this.postId).then(function (response) {
         _this.post = response.data;
+
+        _this.watchIncrement(response.data);
       })["catch"](function (error) {
         console.log(error);
         _this.errored = true;
@@ -3988,6 +3990,27 @@ __webpack_require__.r(__webpack_exports__);
 
           _this3.getPost();
         });
+      }
+    },
+    watchIncrement: function watchIncrement(response) {
+      var _this4 = this;
+
+      if (response) {
+        var watch = response[0]['watch'];
+        var timeId = setTimeout(function () {
+          watch = watch + 1;
+          axios.patch('/api/posts/' + _this4.postId, {
+            watch: watch
+          }).then(function (response) {
+            _this4.watch = response.data;
+
+            _this4.getPost();
+          });
+        }, 5000);
+
+        if (this.watch === 1) {
+          clearTimeout(timeId);
+        }
       }
     }
   }
@@ -102688,7 +102711,7 @@ var render = function() {
                                   attrs: { type: "primary" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.submitForm("formComment")
+                                      return _vm.submitForm()
                                     }
                                   }
                                 },

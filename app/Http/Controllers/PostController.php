@@ -48,7 +48,15 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Post::where('id', $id)->update(['likes' => $request->likes]);      
+        if($request->watch) {
+           
+            return Post::where('id', $id)->update(['watch' => $request->watch]);
+        
+        } else if($request->likes) {
+            
+            return Post::where('id', $id)->update(['likes' => $request->likes]); 
+
+        }     
     }
 
     /**

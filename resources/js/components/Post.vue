@@ -44,7 +44,7 @@
                                             <el-input type="textarea" v-model="formComment.body" placeholder="Текст коментаря"></el-input>
                                         </el-form-item>
                                         <el-form-item>
-                                            <el-button type="primary" @click="submitForm('formComment')">Відправити</el-button>
+                                            <el-button type="primary" @click="submitForm()">Відправити</el-button>
                                         </el-form-item>
                                     </el-form>
                                 </div>
@@ -120,7 +120,8 @@ export default {
             }
         },
         mounted() {
-            this.getPost()
+            this.getPost(),
+            this.watchIncrement()
         },
         methods: {
             getPost() {
@@ -128,6 +129,7 @@ export default {
                     .get('/api/posts/'+this.postId)
                     .then(response => {
                         this.post = response.data
+                        this.watchIncrement(response.data)
                     })
                     .catch(error => {
                         console.log(error)
@@ -196,6 +198,30 @@ export default {
                     })
                 }  
                 
+            },
+
+            watchIncrement(response) {
+                
+                if(response) {
+                    let watch = response[0]['watch']
+
+                    let timeId = setTimeout(()=> {
+                        watch = watch + 1
+                        
+                       axios
+                        .patch('/api/posts/'+this.postId, {
+                            watch
+                        })
+                        .then(response => {
+                        this.watch = response.data
+                        this.getPost()
+                    })
+                    }, 5000)
+                    
+                    if(this.watch === 1) {
+                        clearTimeout(timeId)
+                    }
+                }
             }
         }
 }
