@@ -3663,7 +3663,8 @@ __webpack_require__.r(__webpack_exports__);
         current_page: response.current_page,
         last_page: response.last_page,
         prev_page_url: response.prev_page_url,
-        next_page_url: response.next_page_url
+        next_page_url: response.next_page_url,
+        path: response.path
       };
       this.pagination = pagination;
     },
@@ -3784,7 +3785,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/last_posts').then(function (response) {
         _this.posts = response.data;
-        console.log(response.data);
       })["catch"](function (error) {
         console.log(error);
         _this.errored = true;

@@ -114,6 +114,7 @@
                     last_page: response.last_page,
                     prev_page_url: response.prev_page_url,
                     next_page_url: response.next_page_url,
+                    path: response.path
                 }
 
                 this.pagination = pagination
