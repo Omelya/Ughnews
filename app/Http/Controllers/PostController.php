@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -36,7 +37,25 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return Post::where('id', $id)->get();
+        if(is_numeric($id)){
+            $post = Post::where('id', $id)->get();
+
+            $postTag = Post::find($id)->tags;
+
+            return array($post, $postTag);
+        } else if(!is_numeric($id)) {
+            
+            $tags = Tag::where('tags', $id)->get();
+            
+            foreach($tags as $tag) {
+                $tag->id;
+            }
+            
+            $post = Post::where('tags_id', $tag->id)-> get();
+
+            return $post;
+        }
+        
     }
 
     /**

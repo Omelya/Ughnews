@@ -39,6 +39,8 @@ import Articles from './components/Articles'
 
 import Post from './components/Post'
 
+import PostTag from './components/PostTag'
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -64,6 +66,12 @@ import Post from './components/Post'
             component: Post,
             props: true
         },
+        {
+            path: '/articles/tag/:postTag',
+            name: 'showPostTag',
+            component: PostTag,
+            props:true
+        }
     ]
 })
 

@@ -1,12 +1,17 @@
 <template>
         <el-row>
-            <el-col :span="24" v-for="post in post" :key="post.id">
+            <el-col :span="24" v-for="post in articles" :key="post.id">
                 <div class="content">
                     <div class="content-inner">
                         <h4 class="post-title">{{post.title}}</h4>
                         <p class="post-content">{{post.text}}</p>
                         <i class="el-icon-view"><span class="watch">{{post.watch}}</span></i>
                         <i class="el-icon-star-off" id="el-icon-star" @click="likesCount(post.likes)"><span class="watch">{{post.likes}}</span></i>
+                        <router-link :to="{name: 'showPostTag', params: {postTag: tags.tags}}">
+                            <el-tag effect="dark">
+                            {{tags.tags}}
+                            </el-tag>
+                        </router-link>
                         <div class="form-container">
                             <div id="success" hidden>
                                 <el-alert
@@ -84,10 +89,6 @@
         text-transform: uppercase;
     }
 
-    /* .post-content {
-        
-    } */
-
     .form-container {
         margin-top: 100px;
         margin-left: -100px;
@@ -109,7 +110,8 @@ export default {
     ],
     data() {
             return {
-                post: [],
+                articles: [],
+                tags: [],
                 formComment: {
                     subject: '',
                     body: ''
@@ -128,8 +130,9 @@ export default {
                 axios
                     .get('/api/posts/'+this.postId)
                     .then(response => {
-                        this.post = response.data
-                        this.watchIncrement(response.data)
+                        this.articles = response.data[0]
+                        this.tags = response.data[1]
+                        this.watchIncrement(response.data[0])
                     })
                     .catch(error => {
                         console.log(error)

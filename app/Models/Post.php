@@ -21,4 +21,7 @@ class Post extends Model
         'updated_at'
     ];
 
+    public function tags() {
+        return $this->hasOne(Tag::class, 'id', 'tags_id');
+    }
 }
