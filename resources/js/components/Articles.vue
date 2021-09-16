@@ -12,7 +12,7 @@
         <el-container>
             <el-main>
                 <el-row>
-                    <el-col :span="9" v-for="post in posts" :key="post.id">
+                    <el-col :span="10" v-for="post in posts" :key="post.id">
                         <router-link class="post-link" :to="{name: 'showPost', params: {postId: post.id}}">
                             <el-card :body-style="{ padding: '15px'}">
                             <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
